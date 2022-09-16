@@ -1,6 +1,15 @@
 require("dotenv").config();
 const productModel = require("../models/productModel");
 
+const getAllShoes = async (req, res) => {
+  try {
+    const allShoes = await productModel.find();
+    res.status(200).json(allShoes);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 const addNewShoe = async (req, res) => {
   try {
     const newShoe = await productModel.create({
@@ -19,4 +28,5 @@ const addNewShoe = async (req, res) => {
 
 module.exports = {
   addNewShoe,
+  getAllShoes,
 };

@@ -27,16 +27,27 @@ const validateAdminData = (req, res, next) => {
   next();
 };
 
+// const verify = (req, res, next) => {
+//   const token = req.header.jwt_key;
+//   try {
+//     const user = jwt.verify(token, process.env.JWT_SECRET);
+//     req.user = user;
+//     console.log();
+//     next();
+//   } catch (error) {
+//     res.status(401).json("You are not authorized, Please Try Again");
+//     return;
+//   }
+// };
 const verify = (req, res, next) => {
-  const token = req.header.jwt_key;
+  const token = req.headers.auth_key;
+
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     req.user = user;
-    console.log();
     next();
   } catch (error) {
-    res.status(401).json("You are not authorized, Please Try Again");
-    return;
+    res.status(401).json("Invalid, Not Authorize");
   }
 };
 
